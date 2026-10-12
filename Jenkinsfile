@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('hello') {
             steps {
-                echo 'my jenkins pipeline'
+                echo "my jenkins pipeline - webhook otomatis aktif!"
             }
         }
     }
