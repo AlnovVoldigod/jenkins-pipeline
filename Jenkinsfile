@@ -12,7 +12,7 @@ pipeline {
     }
     stage('Build') { 
       steps { 
-        bat 'echo "Build di Windows"' 
+        bat 'echo "Build aplikasi dengan koneksi Database di Windows"' 
       } 
     }
     stage('Build Docker Image') {
@@ -29,6 +29,12 @@ pipeline {
           bat "docker tag %IMAGE_NAME%:%BUILD_NUMBER% %IMAGE_NAME%:latest"
           bat "docker push %IMAGE_NAME%:latest"
         }
+      }
+    }
+    stage('Run Docker Container') {
+      steps {
+        bat 'docker rm -f simple-app-db || ver > nul'
+        bat "docker run -d -p 5000:5000 --name simple-app-db %IMAGE_NAME%:%BUILD_NUMBER%"
       }
     }
   }
